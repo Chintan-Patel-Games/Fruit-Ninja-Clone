@@ -1,16 +1,18 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance; // Singleton instance for global access
     private int score; // Player's score
-    private int lives = 3; // Player's lives
-    private bool gameOver = false;
+    private int lives = 10; // Player's lives
+    public bool gameOver = false;
 
     [SerializeField] private TextMeshProUGUI scoreText; // UI Text element to display score
     [SerializeField] private TextMeshProUGUI livesText; // UI Text element to display lives
     [SerializeField] private TextMeshProUGUI gameOverText; // UI Text element to display lives
+    [SerializeField] private Image bgi; // UI Text element to display lives
 
     private void Awake()
     {
@@ -41,6 +43,8 @@ public class ScoreManager : MonoBehaviour
     public void SubScore(int amount)
     {
         score -= amount; // Decrease score
+        if (score <= 0) { score = 0; }
+        if (score <= 0 && lives <= 0) { gameOver = true; }
         UpdateScoreUI();
     }
 
@@ -66,6 +70,7 @@ public class ScoreManager : MonoBehaviour
         if (gameOver)
         {
             gameOverText.enabled  = true;
+            bgi.color = Color.gray;
             Time.timeScale = 0;
         }
     }

@@ -4,7 +4,7 @@ public class Fruit : MonoBehaviour
 {
     // [SerializeField] private GameObject fruitHalfPrefab;  // Prefab of each half of the fruit
     [SerializeField] private float destroyThresholdY = -6f; // Y-position below which fruit is destroyed
-    [SerializeField] private float splitForce = 5f; // Force applied to each half
+    // [SerializeField] private float splitForce = 5f; // Force applied to each half
 
     private bool isSliced = false; // To prevent multiple slices of the same fruit
 
@@ -12,6 +12,13 @@ public class Fruit : MonoBehaviour
     {
         // Destroy the fruit if it falls below the threshold
         if (transform.position.y < destroyThresholdY && !isSliced)
+        {
+            Destroy(gameObject);
+            ScoreManager.Instance.SubScore(1);
+            ScoreManager.Instance.SubLives(1);
+        }
+        
+        if (transform.position.y < destroyThresholdY && !isSliced && tag != "Bomb")
         {
             Destroy(gameObject);
         }
