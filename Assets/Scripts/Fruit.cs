@@ -18,7 +18,7 @@ public class Fruit : MonoBehaviour
             ScoreManager.Instance.SubLives(1);
         }
         
-        if (transform.position.y < destroyThresholdY && !isSliced && tag != "Bomb")
+        if (transform.position.y < destroyThresholdY && !isSliced && tag == "Bomb")
         {
             Destroy(gameObject);
         }
